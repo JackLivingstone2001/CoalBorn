@@ -2,10 +2,16 @@
 #include "CoalBornGameModeBase.h"
 #include <Kismet/GameplayStatics.h>
 #include "ClassPlayerControllerBase.h"
+#include "WaveGameInstanceBase.h"
 
 /*
 	ROUND
 */
+
+void ACoalBornGameStateBase::BeginPlay()
+{
+	m_currentRound = Cast<UWaveGameInstanceBase>(UGameplayStatics::GetGameInstance(GetWorld()))->GetLoadedGame()->CurrentRound;
+}
 
 void ACoalBornGameStateBase::OnRoundStarted()
 {

@@ -10,6 +10,8 @@ class COALBORN_API ACoalBornGameStateBase : public AGameStateBase
 	GENERATED_BODY()
 	
 public:
+	virtual void BeginPlay() override;
+
 	// Round
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Round")
 	int EnemiesInRoundBase = 0;
