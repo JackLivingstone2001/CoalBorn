@@ -2,6 +2,7 @@
 #include "CoalBornGameStateBase.h"
 #include <Kismet/GameplayStatics.h>
 #include "EnemySpawnerBase.h"
+#include "WaveGameInstanceBase.h"
 
 /*
 	ROUND
@@ -9,6 +10,23 @@
 
 void ACoalBornGameModeBase::StartRound()
 {
+	// Check if game loaded
+	if (!m_saveGameLoaded)
+	{
+		UWaveGameInstanceBase* gameInstance = Cast<UWaveGameInstanceBase>(UGameplayStatics::GetGameInstance(GetWorld()));
+
+		if (gameInstance)
+		{
+			Cast<ACoalBornGameStateBase>(UGameplayStatics::GetGameState(GetWorld()))->SetCurrentRound(gameInstance->GetLoadedGame()->CurrentRound);
+
+			m_saveGameLoaded = true;
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Game instance not loaded"));
+		}
+	}
+
 	// Update game state
 	Cast<ACoalBornGameStateBase>(UGameplayStatics::GetGameState(this))->OnRoundStarted();
 
@@ -22,7 +40,7 @@ void ACoalBornGameModeBase::FinishRound()
 	Cast<ACoalBornGameStateBase>(UGameplayStatics::GetGameState(this))->OnRoundFinished();
 
 	// Start next round after delay
-	GetWorldTimerManager().SetTimer(RoundTimer, this, &ACoalBornGameModeBase::StartRound, TimeBetweenRounds, false);
+	GetWorldTimerManager().SetTimer(m_roundTimer, this, &ACoalBornGameModeBase::StartRound, TimeBetweenRounds, false);
 }
 
 /*

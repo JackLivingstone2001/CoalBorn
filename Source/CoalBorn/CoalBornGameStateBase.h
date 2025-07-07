@@ -10,8 +10,6 @@ class COALBORN_API ACoalBornGameStateBase : public AGameStateBase
 	GENERATED_BODY()
 	
 public:
-	virtual void BeginPlay() override;
-
 	// Round
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Round")
 	int EnemiesInRoundBase = 0;
@@ -20,6 +18,8 @@ public:
 	void OnRoundStarted();
 	void OnRoundFinished();
 	bool IsRoundFinished();
+
+	void SetCurrentRound(int round);
 
 	// Enemies
 	void OnEnemyKilled();

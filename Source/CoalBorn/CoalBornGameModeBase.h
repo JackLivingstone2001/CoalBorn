@@ -25,7 +25,8 @@ public:
 	void SpawnEnemies();
 private:
 	// Round
-	FTimerHandle RoundTimer;
+	bool m_saveGameLoaded = false;
+	FTimerHandle m_roundTimer;
 
 	// Enemies
 	void SpawnEnemy();

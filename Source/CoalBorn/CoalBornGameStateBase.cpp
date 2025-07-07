@@ -8,11 +8,6 @@
 	ROUND
 */
 
-void ACoalBornGameStateBase::BeginPlay()
-{
-	m_currentRound = Cast<UWaveGameInstanceBase>(UGameplayStatics::GetGameInstance(GetWorld()))->GetLoadedGame()->CurrentRound;
-}
-
 void ACoalBornGameStateBase::OnRoundStarted()
 {
 	// Increase round
@@ -40,6 +35,11 @@ bool ACoalBornGameStateBase::IsRoundFinished()
 	// Finish round
 	Cast<ACoalBornGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()))->FinishRound();
 	return true;
+}
+
+void ACoalBornGameStateBase::SetCurrentRound(int round)
+{
+	m_currentRound = round;
 }
 
 /*

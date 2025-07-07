@@ -21,12 +21,13 @@ void UMainMenuHUDBase::OnCreateMinerGameButtonClicked()
 
 void UMainMenuHUDBase::OnLoadMinerGameButtonClicked()
 {
-	UWaveSaveGameBase* saveGame = Cast<UWaveSaveGameBase>(UGameplayStatics::LoadGameFromSlot("MinerClassGame", 0));
+	UWaveSaveGameBase* loadGame = Cast<UWaveSaveGameBase>(UGameplayStatics::LoadGameFromSlot("MinerClassGame", 0));
 	UWaveGameInstanceBase* gameInstance = Cast<UWaveGameInstanceBase>(GetWorld()->GetGameInstance());
-	if (gameInstance && saveGame)
-	{
-		gameInstance->SetLoadedGame(saveGame);
 
-		UGameplayStatics::OpenLevel(this, FName("TestLevel"));
+	if (gameInstance && loadGame)
+	{
+		gameInstance->SetLoadedGame(loadGame);
+
+		UGameplayStatics::OpenLevel(GetWorld(), FName("TestLevel"));
 	}
 }
