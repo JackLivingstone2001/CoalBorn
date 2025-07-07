@@ -27,17 +27,6 @@ void UMainMenuHUDBase::OnLoadMinerGameButtonClicked()
 	{
 		gameInstance->SetLoadedGame(saveGame);
 
-		APlayerController* PC = GetWorld()->GetFirstPlayerController();
-		if (PC)
-		{
-			PC->bShowMouseCursor = true;
-			PC->SetInputMode(FInputModeUIOnly());
-
-			FInputModeUIOnly InputMode;
-			InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::LockInFullscreen);
-			PC->SetInputMode(InputMode);
-		}
-
 		UGameplayStatics::OpenLevel(this, FName("TestLevel"));
 	}
 }

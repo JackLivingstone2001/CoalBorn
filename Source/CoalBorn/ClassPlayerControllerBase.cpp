@@ -9,6 +9,14 @@
 
 void AClassPlayerControllerBase::BeginPlay()
 {
+    // Lock the cursor and make it invisible
+    FInputModeGameOnly InputMode;
+    SetInputMode(InputMode);
+
+    // Set the cursor to be locked to the center and hide it
+    bShowMouseCursor = false;
+    SetMouseLocation(0, 0);
+
     // Add HUD to viewport
     if (HeadsUpDisplay)
     {
