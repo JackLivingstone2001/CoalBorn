@@ -14,6 +14,10 @@ public:
 	// UE
 	virtual void BeginPlay() override;
 
+	// Class
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	FString ClassSaveSlotName = "";
+
 	// Health
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
 	float MaxHealth = 0.0f;

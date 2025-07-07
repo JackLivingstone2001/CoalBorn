@@ -4,29 +4,21 @@
 #include "EnemySpawnerBase.h"
 #include "WaveGameInstanceBase.h"
 
+void ACoalBornGameModeBase::BeginPlay()
+{
+	Super::BeginPlay();
+
+	// Delay starting the round to ensure all systems are ready (especially GameInstance)
+	FTimerHandle TimerHandle;
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &ACoalBornGameModeBase::StartRound, 0.1f, false);
+}
+
 /*
 	ROUND
 */
 
 void ACoalBornGameModeBase::StartRound()
 {
-	// Check if game loaded
-	if (!m_saveGameLoaded)
-	{
-		UWaveGameInstanceBase* gameInstance = Cast<UWaveGameInstanceBase>(UGameplayStatics::GetGameInstance(GetWorld()));
-
-		if (gameInstance)
-		{
-			Cast<ACoalBornGameStateBase>(UGameplayStatics::GetGameState(GetWorld()))->SetCurrentRound(gameInstance->GetLoadedGame()->CurrentRound);
-
-			m_saveGameLoaded = true;
-		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Game instance not loaded"));
-		}
-	}
-
 	// Update game state
 	Cast<ACoalBornGameStateBase>(UGameplayStatics::GetGameState(this))->OnRoundStarted();
 

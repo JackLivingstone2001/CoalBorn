@@ -11,6 +11,8 @@ class COALBORN_API ACoalBornGameModeBase : public AGameModeBase
 	GENERATED_BODY()
 	
 public:
+	virtual void BeginPlay() override;
+
 	// Round
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Round")
 	float TimeBetweenRounds;

@@ -10,8 +10,8 @@
 
 void ACoalBornGameStateBase::OnRoundStarted()
 {
-	// Increase round
-	m_currentRound++;
+	// Set current round
+	m_currentRound = Cast<UWaveSaveGameBase>(UGameplayStatics::LoadGameFromSlot("MinerClassGame", 0))->CurrentRound;
 
 	// Update class HUD
 	Cast<AClassPlayerControllerBase>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->GetHeadsUpDisplay()->UpdateRoundUI(m_currentRound, GetEnemyAmountForRound() - m_enemiesKilledInRound);
@@ -23,8 +23,17 @@ void ACoalBornGameStateBase::OnRoundFinished()
 	m_enemiesKilledInRound = 0;
 	m_enemiesSpawnedInRound = 0;
 
+	// Increase round
+	m_currentRound++;
+
 	// Clear class HUD
 	Cast<AClassPlayerControllerBase>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->GetHeadsUpDisplay()->ClearRoundUI();
+
+	// Save game
+	UWaveSaveGameBase* saveGame = Cast<UWaveSaveGameBase>(UGameplayStatics::CreateSaveGameObject(UWaveSaveGameBase::StaticClass()));
+	saveGame->CurrentRound = m_currentRound;
+
+	bool wasSuccessful = UGameplayStatics::SaveGameToSlot(saveGame, Cast<AClassPlayerControllerBase>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->ClassSaveSlotName, 0);
 }
 
 bool ACoalBornGameStateBase::IsRoundFinished()

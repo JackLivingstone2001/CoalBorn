@@ -29,7 +29,7 @@ void AClassPlayerControllerBase::BeginPlay()
     }
 
     // Start first round
-    Cast<ACoalBornGameModeBase>(UGameplayStatics::GetGameMode(this))->StartRound();
+    //Cast<ACoalBornGameModeBase>(UGameplayStatics::GetGameMode(this))->StartRound();
 }
 
 /*

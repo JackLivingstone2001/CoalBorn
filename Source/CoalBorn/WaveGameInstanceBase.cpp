@@ -1,4 +1,6 @@
 #include "WaveGameInstanceBase.h"
+#include <Kismet/GameplayStatics.h>
+#include "CoalBornGameModeBase.h"
 
 void UWaveGameInstanceBase::SetLoadedGame(UWaveSaveGameBase* loadedGame)
 {
